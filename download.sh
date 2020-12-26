@@ -5,16 +5,17 @@
 
 DATA_DIR=$(pwd)/../data/glue_data/
 echo "Create a folder $DATA_DIR"
-mkdir ${DATA_DIR}
+mkdir -p ${DATA_DIR}
 
 BERT_DIR=$(pwd)/../bert_models
 echo "Create a folder BERT_DIR"
-mkdir ${BERT_DIR}
+mkdir -p ${BERT_DIR}
 
 ## DOWNLOAD MNLI DATA
 ## Please refer glue-baseline install requirments or other issues.
-git clone https://github.com/nyu-mll/jiant.git
-cd jiant
+cd ..
+git clone https://github.com/nyu-mll/jiant-v1-legacy.git
+cd jiant-v1-legacy
 python scripts/download_glue_data.py --data_dir $DATA_DIR --tasks MNLI
 cd ..
 rm -rf jiant

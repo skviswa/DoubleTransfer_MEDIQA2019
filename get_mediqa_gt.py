@@ -3,7 +3,7 @@ from data_utils.mediqa_utils import submit
 import os
 import pdb
 
-label_corres={'4':1.0,'3':0.75,'2':0.25,'1':0.0}
+label_corres= {'4': 1.0,'3': 0.75,'2': 0.25,'1': 0.0}
 dir_path='../data/mediqa/task3_qa/'
 is_train=True
 if is_train:

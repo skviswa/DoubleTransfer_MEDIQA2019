@@ -84,7 +84,7 @@ def load_mediqa(dir_path,label_dict, add_url_words):
 	fn_train1=os.path.join(dir_path,'MEDIQA2019-Task3-QA-TrainingSet1-LiveQAMed.xml')
 	fn_train2=os.path.join(dir_path,'MEDIQA2019-Task3-QA-TrainingSet2-Alexa.xml')
 	fn_dev=os.path.join(dir_path,'MEDIQA2019-Task3-QA-ValidationSet.xml')
-	fn_test=os.path.join(dir_path,'MEDIQA_Task3_QA_TestSet.xml')
+	fn_test=os.path.join(dir_path,'MEDIQA2019-Task3-QA-TestSet.xml')
 
 	train1_rows, train1_dict, train1_goods = load_mediqa_file(fn_train1, 'train1', add_url_words)
 	train2_rows, train2_dict, train2_goods = load_mediqa_file(fn_train2, 'train2', add_url_words)
@@ -328,9 +328,9 @@ def submit(path, data, dataset_name, label_dict=None,
 					this_pred=label_dict[this_pred]
 				writer.write('{},{}\n'.format(uid, this_pred))
 
-	elif dataset_name in ['mednli', 'rqe','medquad']:
+	elif dataset_name in ['mednli', 'rqe', 'medquad']:
 		header='pair_id,label'
-		if dataset_name =='mednli':
+		if dataset_name == 'mednli':
 			label_dict = GLOBAL_MAP['mednli']
 		with open(path ,'w') as writer:
 			writer.write('{}\n'.format(header))

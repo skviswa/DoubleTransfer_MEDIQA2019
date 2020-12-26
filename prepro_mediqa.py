@@ -72,14 +72,16 @@ def generate_gt_csv(data, dump_path): # now only use for first 2 tasks
 def parse_args():
     parser = argparse.ArgumentParser(description='Preprocessing MEDIQA dataset.')
     parser.add_argument('--seed', type=int, default=13)
-    parser.add_argument('--root_dir', type=str, default='../data')
+    parser.add_argument('--root_dir_glue', type=str, default='../data')
     parser.add_argument('--cased', action='store_true', help='cased model.')
     parser.add_argument('--sci_vocab', action='store_true', help='scibert vocab.')
+    parser.add_argument('--root_dir', type=str, default='../data')
     args = parser.parse_args()
     return args
 
 def main(args):
     root = args.root_dir
+    root_glue = args.root_dir_glue
     assert os.path.exists(root)
 
     train_name = 'dev' if test_mode else 'train'
@@ -88,8 +90,8 @@ def main(args):
     # MNLI Task
     ######################################
     
-    glue_path = os.path.join(root,'glue_data')
-    multi_train_path =  os.path.join(glue_path, 'MNLI/train.tsv')
+    glue_path = os.path.join(root_glue,'glue_data') #root
+    multi_train_path = os.path.join(glue_path, 'MNLI/train.tsv')
     multi_dev_matched_path = os.path.join(glue_path, 'MNLI/dev_matched.tsv')
     multi_dev_mismatched_path = os.path.join(glue_path, 'MNLI/dev_mismatched.tsv')
     multi_test_matched_path = os.path.join(glue_path, 'MNLI/test_matched.tsv')
@@ -99,27 +101,27 @@ def main(args):
     # MedNLI Task
     ######################################
 
-    mednli_train_path = os.path.join(root, 'mediqa/task1_mednli/mli_{}_v1.jsonl'.format(train_name))
-    mednli_dev_path = os.path.join(root, 'mediqa/task1_mednli/mli_dev_v1.jsonl')
-    mednli_test_path = os.path.join(root, 'mediqa/task1_mednli/mli_test_v1.jsonl')
-    mednli_realtest_path = os.path.join(root, 'mediqa/task1_mednli/mednli_bionlp19_shared_task.jsonl')
+    mednli_train_path = os.path.join(root, 'mednli-dataset/mli_{}_v1.jsonl'.format(train_name)) #'mediqa/task1_mednli/mli_{}_v1.jsonl'
+    mednli_dev_path = os.path.join(root, 'mednli-dataset/mli_dev_v1.jsonl') #'mediqa/task1_mednli/mli_dev_v1.jsonl'
+    mednli_test_path = os.path.join(root, 'mednli-dataset/mli_test_v1.jsonl') #'mediqa/task1_mednli/mli_test_v1.jsonl'
+    mednli_realtest_path = os.path.join(root, 'mednli-dataset/mednli_bionlp19_shared_task.jsonl') #'mediqa/task1_mednli/mednli_bionlp19_shared_task.jsonl'
 
     ######################################
     # RQE Task
     ######################################
-    rqe_train_path = os.path.join(root, 'mediqa/task2_rqe/RQE_Train_8588_AMIA2016.xml')
-    rqe_dev_path = os.path.join(root, 'mediqa/task2_rqe/RQE_Test_302_pairs_AMIA2016.xml')
-    rqe_test_path = os.path.join(root, 'mediqa/task2_rqe/MEDIQA_Task2_RQE_TestSet.xml')
+    rqe_train_path = os.path.join(root, 'RQE_Data_AMIA2016/RQE_Train_8588_AMIA2016.xml') #'mediqa/task2_rqe/RQE_Train_8588_AMIA2016.xml'
+    rqe_dev_path = os.path.join(root, 'RQE_Data_AMIA2016/RQE_Test_302_pairs_AMIA2016.xml') #'mediqa/task2_rqe/RQE_Test_302_pairs_AMIA2016.xml'
+    rqe_test_path = os.path.join(root, 'MEDIQA2019/MEDIQA_Task2_RQE/MEDIQA2019-Task2-RQE-TestSet.xml') #'mediqa/task2_rqe/MEDIQA_Task2_RQE_TestSet.xml'
     ######################################
     # QA Task
     ######################################
 
-    mediqa_dir = os.path.join(root,'mediqa/task3_qa/')
+    mediqa_dir = os.path.join(root,'MEDIQA2019/MEDIQA_Task3_QA/') #'mediqa/task3_qa/'
     ######################################
     # MedQuAD Task
     ######################################
 
-    medquad_dir = os.path.join(root,'mediqa/MedQuAD/')
+    medquad_dir = os.path.join(root,'MedQuAD/') #'mediqa/MedQuAD/'
 
     
     ######################################
@@ -162,7 +164,7 @@ def main(args):
     logger.info('Loaded {} rqe_shuff dev samples'.format(len(rqe_shuff_dev_data)))
     logger.info('Loaded {} rqe_shuff test samples'.format(len(rqe_shuff_test_data)))
 
-    mediqa_train_data, mediqa_dev_data, mediqa_old_dev_data, mediqa_test_data, mediqa_split_data = load_mediqa(mediqa_dir,GLOBAL_MAP['mediqa'],False)
+    mediqa_train_data, mediqa_dev_data, mediqa_old_dev_data, mediqa_test_data, mediqa_split_data = load_mediqa(mediqa_dir, GLOBAL_MAP['mediqa'], False)
 
     # mediqa_dev_data = load_mediqa(mediqa_dir,GLOBAL_MAP['mediqa'], is_train=False)
     logger.info('Loaded {} mediqa train samples'.format(len(mediqa_train_data)))
@@ -170,38 +172,38 @@ def main(args):
     logger.info('Loaded {} mediqa test samples'.format(len(mediqa_test_data)))
     # pdb.set_trace()
     for pair in mediqa_split_data:
-        train_data,dev_data = pair
+        train_data, dev_data = pair
         logger.info('Loaded {},{} mediqa splitted samples'.format(len(train_data),len(dev_data)))
 
-    mednli_gt_path = os.path.join(root,'mediqa/task1_mednli/gt_dev.csv')
+    mednli_gt_path = os.path.join(root_glue,'mediqa/task1_mednli/gt_dev.csv')
     generate_gt_csv(mednli_dev_data, mednli_gt_path)
-    rqe_gt_path = os.path.join(root,'mediqa/task2_rqe/gt_dev.csv')
+    rqe_gt_path = os.path.join(root_glue,'mediqa/task2_rqe/gt_dev.csv')
     generate_gt_csv(rqe_dev_data, rqe_gt_path)
-    mediqa_gt_path = os.path.join(root,'mediqa/task3_qa/gt_dev.csv')
+    mediqa_gt_path = os.path.join(root_glue,'mediqa/task3_qa/gt_dev.csv')
     generate_gt_csv(mediqa_dev_data, mediqa_gt_path)
 
-    add_num=2
-    medquad_train_data, medquad_dev_data= load_medquad(medquad_dir, negative_num=add_num)
+    add_num = 2
+    medquad_train_data, medquad_dev_data = load_medquad(medquad_dir, negative_num=add_num)
     logger.info('Loaded {} medquad train samples'.format(len(medquad_train_data)))
     logger.info('Loaded {} medquad dev samples'.format(len(medquad_dev_data)))
 
     # pdb.set_trace()
 
     output_name = 'mt_dnn_mediqa'
-    if MAX_SEQ_LEN!=512:
-        output_name+='_{}'.format(MAX_SEQ_LEN)
+    if MAX_SEQ_LEN != 512:
+        output_name += '_{}'.format(MAX_SEQ_LEN)
     if args.cased:
-        output_name+='_cased'
+        output_name += '_cased'
     if args.sci_vocab:
-        output_name+='_scibert'
+        output_name += '_scibert'
     if test_mode:
-        output_name+='_test'
+        output_name += '_test'
 
-    print('output_name:',output_name)
+    print(f'output_name: {output_name}')
 
-    mt_dnn_root = os.path.join(root, 'mediqa_processed',output_name)
+    mt_dnn_root = os.path.join(root_glue, 'mediqa_processed', output_name)
     if not os.path.isdir(mt_dnn_root):
-        os.mkdir(mt_dnn_root)
+        os.makedirs(mt_dnn_root)
 
     # BUILD MNLI
     multinli_train_fout = os.path.join(mt_dnn_root, 'mnli_train.json')

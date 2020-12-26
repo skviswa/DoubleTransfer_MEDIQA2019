@@ -6,15 +6,17 @@ import json
 
 is_train=False
 
-dir_path='../data/mediqa/task1_mednli/'
+dir_path = '../data/mediqa/task1_mednli/'
 processed_path = '../data/mediqa_processed/mt_dnn_mediqa_scibert_v2/'
+if not os.path.exists(processed_path):
+	os.makedirs(processed_path)
 if is_train:
 	dev_path=os.path.join(processed_path,'mednli_train.json')
 else:
 	dev_path=os.path.join(processed_path,'mednli_dev.json')
 uids=[]
 preds=[]
-with open(dev_path,encoding='utf-8') as f:
+with open(dev_path, encoding='utf-8') as f:
 	for line in f:
 		sample=json.loads(line)
 		uids.append(sample['uid'])
@@ -23,7 +25,7 @@ output_path=os.path.join(dir_path,'gt_train.csv') if is_train else os.path.join(
 result={'uids':uids,'predictions':preds}
 submit(output_path, result, 'mednli')
 
-dir_path='../data/mediqa/task2_rqe/'
+dir_path =  '../data/mediqa/task2_rqe/'
 processed_path = '../data/mediqa_processed/mt_dnn_mediqa_scibert_v2/'
 if is_train:
 	dev_path=os.path.join(processed_path,'rqe_train.json')
@@ -31,7 +33,7 @@ else:
 	dev_path=os.path.join(processed_path,'rqe_dev.json')
 uids=[]
 preds=[]
-with open(dev_path,encoding='utf-8') as f:
+with open(dev_path, encoding='utf-8') as f:
 	for line in f:
 		sample=json.loads(line)
 		uids.append(sample['uid'])

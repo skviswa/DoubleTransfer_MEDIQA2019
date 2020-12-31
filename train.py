@@ -150,8 +150,8 @@ output_dir = args.output_dir
 data_dir = args.data_dir
 if args.test_datasets is None:
     args.test_datasets = args.train_datasets
-args.train_datasets = args.train_datasets.split(',')
-args.test_datasets = args.test_datasets.split(',')
+# args.train_datasets = args.train_datasets.split(',')
+# args.test_datasets = args.test_datasets.split(',')
 if len(args.train_datasets)==1:
     args.mtl_observe_datasets = args.train_datasets
 args.external_datasets = args.external_datasets.split(',') if args.external_datasets!='' else []
@@ -243,7 +243,7 @@ def main():
     opt['answer_opt'] = decoder_opts
     opt['tasks_dropout_p'] = dropout_list
 
-    args.label_size = ','.join([str(l) for l in nclass_list])
+    args.label_size = nclass_list #','.join([str(l) for l in nclass_list])
     logger.info(args.label_size)
     dev_data_list = []
     test_data_list = []

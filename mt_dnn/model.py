@@ -1,7 +1,7 @@
 # coding=utf-8
 # Copyright (c) Microsoft. All rights reserved.
 import logging
-
+import torch
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
@@ -85,7 +85,7 @@ class MTDNNModel(object):
             elif opt.get('scheduler_type', 'rop') == 'exp':
                 self.scheduler = ExponentialLR(self.optimizer, gamma=opt.get('lr_gamma', 0.95))
             else:
-                milestones = [int(step) for step in opt.get('multi_step_lr', '10,20,30').split(',')]
+                milestones = opt['multi_step_lr'] #[int(step) for step in opt.get('multi_step_lr', '10,20,30').split(',')]
                 self.scheduler = MultiStepLR(self.optimizer, milestones=milestones, gamma=opt.get('lr_gamma'))
         else:
             self.scheduler = None

@@ -1,0 +1,22 @@
+{
+  "update_bert_opt": 0,
+  "multi_gpu_on": false,
+  "mem_cum_type": "simple",
+  "answer_num_turn": 5,
+  "answer_mem_drop_p": 0.1,
+  "answer_att_hidden_size": 128,
+  "answer_att_type": "bilinear",
+  "answer_rnn_type": "gru",
+  "answer_sum_att_type": "bilinear",
+  "answer_merge_opt": 1,
+  "answer_mem_type": 1,
+  "answer_dropout_p": 1,
+  "answer_weight_norm_on": false,
+  "dump_state_on": false,
+  "answer_opt": 0,
+  "label_size": [3, 3, 2],
+  "mtl_opt": 1,
+  "mix_opt": 0,
+  "max_seq_len": 512,
+  "init_ratio": 1
+}

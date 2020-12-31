@@ -150,7 +150,7 @@ class BatchGen:
         v = v.to(device)
         return v
 
-    def rebacth(self, batch):
+    def rebatch(self, batch):
         newbatch = []
         for sample in batch:
             size = len(sample['token_id'])
@@ -169,7 +169,7 @@ class BatchGen:
         while self.offset < len(self):
             batch = self.data[self.offset]
             if self.pairwise:
-                batch = self.rebacth(batch)
+                batch = self.rebatch(batch)
             batch_size = len(batch)
             # print('batch_size:',batch_size)
             batch_dict = {}
@@ -231,9 +231,9 @@ class BatchGen:
                     current_idx += 1
                 # pdb.set_trace()
 
-            if self.gpu:
-                for i, item in enumerate(batch_data):
-                    batch_data[i] = self.patch(item.pin_memory())
+            # if self.gpu:
+            #     for i, item in enumerate(batch_data):
+            #         batch_data[i] = self.patch(item.pin_memory())
 
             # meta 
             batch_info['uids'] = [sample['uid'] for sample in batch]

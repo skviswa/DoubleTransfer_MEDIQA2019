@@ -23,7 +23,7 @@ class SANBertNetwork(nn.Module):
         mem_size = self.bert_config.hidden_size
         self.decoder_opt = opt['answer_opt']
         self.scoring_list = nn.ModuleList()
-        labels = [int(ls) for ls in opt['label_size'].split(',')]
+        labels = opt['label_size'] #[int(ls) for ls in opt['label_size'].split(',')]
         task_dropout_p = opt['tasks_dropout_p']
         self.bert_pooler = None
 

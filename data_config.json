@@ -1,0 +1,20 @@
+{
+  "log_file": "mt-dnn-train.log",
+  "init_checkpoint": "../data/bert_data/bert_model_base.pt",
+  "finetune": false,
+  "retain_scoring": false,
+  "data_dir": "../data/mt_dnn_mediqa",
+  "data_root": "../data/",
+  "data_sort_on": false,
+  "name": "farmer",
+  "train_datasets": ["mednli", "rqe"],
+  "external_datasets": "",
+  "external_include_ratio": 1.0,
+  "mediqa_score": "adjusted",
+  "mediqa_score_offset": 0.0,
+  "mediqa_eval_more": false,
+  "float_medquad": false,
+  "answer_relu": false,
+  "hinge_lambda": 1.0,
+  "mtl_observe_datasets": ["mednli", "rqe"]
+}

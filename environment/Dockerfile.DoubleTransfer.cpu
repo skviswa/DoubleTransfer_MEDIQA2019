@@ -1,0 +1,31 @@
+FROM determinedai/environments:py-3.6.9-pytorch-1.4-tf-2.2-cpu-0.8.0 as base
+
+COPY docker_git_key .
+
+RUN eval $(ssh-agent) && \
+    ssh-add docker_git_key && \
+    ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts && \
+    git clone git@github.com:xycforgithub/DoubleTransfer_MEDIQA2019.git
+
+RUN mkdir -p /run/determined/workdir/ && cp -r DoubleTransfer_MEDIQA2019/ /run/determined/workdir/ && \
+    echo "ytick.alignment: center_baseline" > /opt/conda/lib/python3.6/site-packages/matplotlib/mpl-data/stylelib/_classic_test_patch.mplstyle
+
+WORKDIR DoubleTransfer_MEDIQA2019
+
+COPY environment/environment.yml ./
+
+RUN conda --version && \
+    conda env update --name base --file environment.yml && \
+    conda clean --all --force-pkgs-dirs --yes
+
+RUN eval "$(conda shell.bash hook)" && \
+    conda activate base && \
+    python setup.py install
+
+ENV PYTHONPATH=/run/determined/workdir/DoubleTransfer_MEDIQA2019
+
+RUN { \
+        echo "export CONDA_DIR=${CONDA_DIR}"; \
+        echo "export PATH=${PATH}"; \
+        echo "export PYTHONPATH=${PYTHONPATH}"; \
+    } >> /etc/profile

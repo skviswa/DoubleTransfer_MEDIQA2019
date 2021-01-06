@@ -138,7 +138,8 @@ class DoubleTransfer(Dataset):
             type_id = sample['type_id'][idx]
             uid = sample['ruid'][idx]
             olab = sample['olabel'][idx]
-            newbatch.append({'uid': uid, 'token_id': token_id, 'type_id': type_id, 'label':sample['label'], 'true_label': olab})
+            newbatch.append(
+                {'uid': uid, 'token_id': token_id, 'type_id': type_id, 'label': sample['label'], 'true_label': olab})
         return newbatch
 
     def __getitem__(self, item):
@@ -227,7 +228,7 @@ class DoubleTransfer(Dataset):
 
 class DoubleTransfer_Batched(Dataset):
     """
-    This utility reuses BatchGen as is, but wraps a dataset class around the iterators so that we can use
+    This utility uses BatchGen objects, but wraps a dataset class around the iterators so that we can use
     DataLoaders for training and evaluation
     """
 

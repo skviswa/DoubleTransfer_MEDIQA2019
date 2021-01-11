@@ -109,7 +109,7 @@ class BatchGen:
                 for qid in self.q_dict:
                     for idx, sample in enumerate(self.q_dict[qid]):
                         next_idx=(idx+1) % len(self.q_dict[qid])
-                        q_pair_list.append((sample,self.q_dict[qid][next_idx]))
+                        q_pair_list.append((sample, self.q_dict[qid][next_idx]))
                 random.shuffle(q_pair_list)
                 self.data = []
                 for pair in q_pair_list:
@@ -142,7 +142,7 @@ class BatchGen:
         return len(self.data)
 
     def patch(self, v):
-        v = v.cuda(async=True)
+        # v = v.cuda(async=True)
         return v
 
     @staticmethod

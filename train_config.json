@@ -1,5 +1,5 @@
 {
-  "cuda": true,
+  "cuda": false,
   "log_per_updates": 500,
   "epochs": 20,
   "batch_size": 32,
@@ -27,7 +27,7 @@
   "lr_gamma": 0.5,
   "bert_l2norm": 0.0,
   "scheduler_type": "ms",
-  "output_dir": "../model_data/mt-dnn-mediqa/",
+  "output_dir": "/Users/ksubramanian2/Documents/CQA_Example/model_data/mt-dnn-mediqa/",
   "seed": 42,
   "task_config_path": "configs/tasks_config.json",
   "not_save_model": false,

@@ -1,10 +1,10 @@
 {
   "log_file": "mt-dnn-train.log",
-  "init_checkpoint": "../data/bert_data/bert_model_base.pt",
+  "init_checkpoint": "/Users/ksubramanian2/Documents/CQA_Example/data/bert_data/bert_model_base.pt",
   "finetune": false,
   "retain_scoring": false,
-  "data_dir": "../data/mt_dnn_mediqa",
-  "data_root": "../data/",
+  "data_dir": "/Users/ksubramanian2/Documents/CQA_Example/data/mediqa_processed/mt_dnn_mediqa_384",
+  "data_root": "/Users/ksubramanian2/Documents/CQA_Example/data/",
   "data_sort_on": false,
   "name": "farmer",
   "train_datasets": ["mednli", "rqe"],

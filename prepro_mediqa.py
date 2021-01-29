@@ -75,6 +75,8 @@ def parse_args():
     parser.add_argument('--root_dir_glue', type=str, default='../data')
     parser.add_argument('--cased', action='store_true', help='cased model.')
     parser.add_argument('--sci_vocab', action='store_true', help='scibert vocab.')
+    parser.add_argument('--bluebert_vocab', action='store_true', help='bluebert vocab.')
+    parser.add_argument('--biobert_vocab', action='store_true', help='biobert vocab.')
     parser.add_argument('--root_dir', type=str, default='../data')
     args = parser.parse_args()
     return args
@@ -196,6 +198,10 @@ def main(args):
         output_name += '_cased'
     if args.sci_vocab:
         output_name += '_scibert'
+    if args.bluebert_vocab:
+        output_name += '_bluebert'
+    if args.biobert_vocab:
+        output_name += '_biobert'
     if test_mode:
         output_name += '_test'
 
@@ -271,6 +277,12 @@ if __name__ == '__main__':
     if args.sci_vocab:
         # default to uncased
         bert_tokenizer = BertTokenizer.from_pretrained('../bert_models/scibert_scivocab_uncased/vocab.txt')
+    elif args.bluebert_vocab:
+        # default to uncased
+        bert_tokenizer = BertTokenizer.from_pretrained(
+            '../bert_models/NCBI_BERT_pubmed_mimic_uncased_L-12_H-768_A-12/vocab.txt')
+    elif args.cased and args.biobert_vocab:
+        bert_tokenizer = BertTokenizer.from_pretrained('../bert_models/biobert-base-cased-v1.1/vocab.txt')
     elif args.cased:
         bert_tokenizer = BertTokenizer.from_pretrained('bert-large-cased')
     else:

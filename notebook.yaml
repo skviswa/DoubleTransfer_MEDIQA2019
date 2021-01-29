@@ -1,0 +1,8 @@
+description: double-transfer-notebook
+resources:
+  slots: 1
+environment:
+  image: determinedai/environments:cuda-10.1-pytorch-1.4-tf-2.1-gpu-0.4.0
+bind_mounts:
+  - host_path: /home/determined/minio-data/
+    container_path: /run/determined/workdir/data/

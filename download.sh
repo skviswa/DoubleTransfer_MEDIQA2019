@@ -38,4 +38,13 @@ wget https://mrc.blob.core.windows.net/mt-dnn-model/mt_dnn_large.pt -O "${BERT_D
 
 ## Download SciBERT models
 wget https://s3-us-west-2.amazonaws.com/ai2-s2-research/scibert/pytorch_models/scibert_scivocab_uncased.tar -O "uncased_scibert_base.tar"
+# Extract weights and vocab file
 tar -xvf uncased_scibert_base.tar
+
+## Download BlueBERT base pre-trained on PubMed+MIMIC-III model
+git lfs install
+git clone https://huggingface.co/bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12
+
+## Download BioBERT base cased v1.1 model
+git lfs install
+git clone https://huggingface.co/dmis-lab/biobert-base-cased-v1.1

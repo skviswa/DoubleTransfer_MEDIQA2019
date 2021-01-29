@@ -12,6 +12,10 @@ python prepro_mediqa.py --root_dir "$ROOT_DIR"
 python prepro_mediqa.py --root_dir "$ROOT_DIR" --cased
 # preprocessing, uncased, with SciBERT vocabulary
 python prepro_mediqa.py --root_dir "$ROOT_DIR" --sci_vocab
+# preeprocessing, uncased, with BlueBERT vocabulary
+python prepro_mediqa.py --bluebert_vocab
+# preeprocessing, uncased, with BlueBERT vocabulary
+python prepro_mediqa.py --biobert_vocab --cased
 
 # preprocess the ground truth files for evaluation
 python get_mediqa_gt_processed.py
